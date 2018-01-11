@@ -1,132 +1,88 @@
-<script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script>    
+<link rel="stylesheet" type="text/css" href="assets/styles.css">
+<script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script>
+
 <?php
 function connection(){
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
 	$dbname = "user_details";
-	// Create connection
-$conn = new mysqli($servername, $username, $password,$dbname);
-
-// Check connection
-if ($conn->connect_error) {
+    $conn = new mysqli($servername, $username, $password,$dbname);
+    if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
-//echo "Connected successfully";
-
-return $conn;
+    }
+    return $conn;
 }
 ?>
+
 <?php
 function display(){
 	$conn=connection();
 	$sql = "SELECT age,college,email,name,year,attendance,marks FROM user_list";
-$result = mysqli_query($conn, $sql);
-?>
-<style>
-table,th,td{
-    padding: 5px;
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-td{
-    cursor: pointer;
-}
-</style> 
-    <div id="result"> </div>
-<table style="text-align: center;vertical-align: middle;" id="thetable">
-<tr>
-<th>Name</th>
-<th>College</th>
-<th>Email</th>
-<th>Year</th>
-<th>Age</th>
-<th>Attendance</th>
-<th>Marks</th>
-<th>Edit</th>
-<th>Delete</th>
-</tr>
-<?php
+    $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-
+?>
+<table style="text-align: center;vertical-align: middle;" id="thetable">
+    <tr>
+    <th>Name</th>
+    <th>College</th>
+    <th>Email</th>
+    <th>Year</th>
+    <th>Age</th>
+    <th>Attendance</th>
+    <th>Marks</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    </tr>
+<?php
     while($row = mysqli_fetch_assoc($result)) {
-            ?>
-           <tr>
-            <td><?php echo $row['name']; ?></td> 
-            <td><?php echo $row['college']; ?></td> 
-            <td><?php echo $row['email']; ?></td> 
-            <td><?php echo $row['year']; ?></td> 
-            <td><?php echo $row['age']; ?></td>
-            <td><?php echo $row['attendance']; ?></td>
-            <td><?php echo $row['marks']; ?></td><!-- 
-            <td><img src="img/edit.png" style="width:20px"></td>
-            <td><img src="img/delete.png" style="width: 20px;"></td> -->
-            <form id="myForm" action="execute_admin.php" method="post">
+?>
+    <tr>
+        <td><?php echo $row['name']; ?></td> 
+        <td><?php echo $row['college']; ?></td> 
+        <td><?php echo $row['email']; ?></td> 
+        <td><?php echo $row['year']; ?></td> 
+        <td><?php echo $row['age']; ?></td>
+        <td><?php echo $row['attendance']; ?></td>
+        <td><?php echo $row['marks']; ?></td><!-- 
+        <td><img src="img/edit.png" style="width:20px"></td>
+        <td><img src="img/delete.png" style="width: 20px;"></td> -->
+        <form id="myForm" action="../admin/admin_edit_user.php" method="post">
             <td><input src="img/edit.png" name="edit_button" type="submit" style="width:20px;"></td>
-            <input type="hidden" id="l" name="key"></input>
-             </form>
-             <script>
-$("#myForm").submit(function(){    
-        var column_num = parseInt( $(this).index() ) + 1;
-        var row_num = parseInt( $(this).parent().index() )+1;
-         var email=$('td:eq(2)').text(); 
-         document.getElementById("l").value=column_num;
-        if(column_num%8===0){
-            document.getElementById("l").value=email;
-        }
-      
-});
-</script>
-             <form id="myForm1" action="delete_admin.php" method="post">
-             <td><input src="img/edit.png" name="delete_button" type="submit" style="width:20px;"></td>
-             <input type="hidden" id="k" name="key1"></input>
-            </form>
-        </tr>
-        <script>
-$("#myForm1").submit(function(){    
-        var column_num = parseInt( $(this).index() ) + 1;
-        var row_num = parseInt( $(this).parent().index() )+1;
-         var email=$('td:eq(2)').text();
-        if(column_num===9){
-            document.getElementById("k").value=email;
-     
-        var txt;
-var r = confirm("Are you sure you want to delete?");
-if (r === true) {
-} else {
-    return false;
-}
-   }   
-});
-</script>
-        <?php
+            <input type="hidden" value="<?php echo $row['email'];?>" name="key"></input>
+        </form>
+        <form id="myForm1" action="../admin/admin_delete.php" method="post" onsubmit="return confirm('Are you sure?')">
+            <td><input src="img/edit.png" name="delete_button" type="submit" style="width:20px;"></td>
+            <input type="hidden" value="<?php echo $row['email'];?>" name="key1"></input>
+        </form>
+    </tr>
+<?php
     }
-    ?>
-    </table>
-    <?php
-} else {
-    echo "0 results";
-}
-
+?>
+</table>
+<?php
+    } else {
+    echo "No data found";
+    }
 mysqli_close($conn);
 }
 ?>
+
+
 <?php
 function verify_user($user){
     $conn=connection();
     $sql = "SELECT email,password,type FROM users";
-$result = mysqli_query($conn, $sql);
-if($user[2]==="admin" && user[0]==="saptarshide1998@gmail.com" && user[1]==="1234"){
+    $result = mysqli_query($conn, $sql);
+    if($user[2]==="admin" && $user[0]==="abc@gmail.com" && $user[1]==="1234"){
     return 1;
-}
-if (mysqli_num_rows($result) > 0) {
+    }
+    if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
         if($row["email"]===$user[0] && $row["password"]===$user[1] && $row["type"]===$user[2])
-          return 1;
-    
-}
+        return 1;
+    }
 }
 return 0;
 
@@ -239,4 +195,15 @@ mysqli_close($conn);
 
 }
 ?>
-
+<?php
+function admin_update_user($user){
+$conn=connection();
+$sql = "UPDATE user_list SET age=$user[0],attendance=$user[1],college='$user[2]',marks=$user[4],name='$user[5]',year=$user[6] WHERE email='$user[3]'";
+if ($conn->query($sql) === TRUE) {
+   return 1;
+} else {
+    echo "Error deleting record: " . $conn->error;
+}
+$conn->close();
+}
+?>
