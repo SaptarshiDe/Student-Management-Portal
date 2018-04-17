@@ -3,8 +3,8 @@ session_start();
 ?>
 <html>
     <head>
-    <title>Admin Home Page</title>
-    <link rel="stylesheet" type="text/css" href="../assets/styles.css">
+        <title>Admin Home Page</title>
+        <link rel="stylesheet" type="text/css" href="../assets/styles.css">
     </head>
     <body id="admin_home">
         <h1 id="admin_home_h1"> Student Details</h1>

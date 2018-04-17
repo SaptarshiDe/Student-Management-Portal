@@ -9,8 +9,8 @@
 		<br>
 		<form action="other/signin_validate.php" method="post">
 			<div class="t">
-				<h4 id="index_email">Email Id:</h4><input id="index_email_input" type="email" name="email"><br>
-				<h4 id="index_password">Password:</h4><input id="index_password_input" type="password" name="password"><br>
+				<h4 id="index_email">Email Id:</h4><input id="index_email_input" type="email" name="email" required=""><br>
+				<h4 id="index_password">Password:</h4><input id="index_password_input" type="password" name="password" pattern="(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,15}" required><br>
 				<input id="index_radio" type="radio" name="type" value="user">User<br>
 				<input id="index_radio" type="radio" name="type" value="admin">Faculty<br>
 				<input type="submit" name="submit_button" id="index_signin_button" value="Signin">

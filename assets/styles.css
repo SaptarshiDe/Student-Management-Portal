@@ -53,13 +53,20 @@
 }
 #user_home{
 	height: 200px;
-    width: 400px;
-    position: fixed;
+	position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -150px;
+    margin-top: -200px;
     margin-left: -200px;
     background-color: orange;
+}
+#user_home_picture{
+	float: left;
+}
+#user_home_image{
+	width: 80px;
+	height: 80px;
+	margin-left:40px;
 }
 #user_home_h1{
 	font-size: 40px;

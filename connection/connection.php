@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="assets/styles.css">
+<link rel="stylesheet" type="text/css" href="../assets/styles.css">
 <script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script>
 
 <?php
@@ -74,14 +74,14 @@ function verify_user($user){
     $conn=connection();
     $sql = "SELECT email,password,type FROM users";
     $result = mysqli_query($conn, $sql);
-    if($user[2]==="admin" && $user[0]==="abc@gmail.com" && $user[1]==="1234"){
-    return 1;
+    if($user[2]==="admin" && $user[0]==="abc@gmail.com" && $user[1]==="123xyz456"){
+        return 1;
     }
     if (mysqli_num_rows($result) > 0) {
     // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        if($row["email"]===$user[0] && $row["password"]===$user[1] && $row["type"]===$user[2])
-        return 1;
+        while($row = mysqli_fetch_assoc($result)) {
+            if($row["email"]===$user[0] && $row["password"]===$user[1] && $row["type"]===$user[2])
+            return 1;
     }
 }
 return 0;
